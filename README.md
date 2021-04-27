@@ -16,7 +16,7 @@
 ### Association
 
 - has_many   :items
-- has_many   :order
+- has_many   :orders
 
 ## items テーブル
 
@@ -29,13 +29,13 @@
 | delivery_charge_id | integer    | null: false                    |
 | prefecture_id      | integer    | null: false                    |
 | period_id          | integer    | null: false                    |
-| price              | string     | null: false                    |
+| price              | integer    | null: false                    |
 | user               | references | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
-- has_one_attached :order
+- has_one    :order
 
 ## buyers テーブル
 
@@ -64,4 +64,4 @@
 
 belongs_to :user
 belongs_to :item
-has_one_attached :buyer
+has_one    :buyer
