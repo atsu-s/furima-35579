@@ -4,11 +4,20 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  validates :nickname, presence: true
-  validates :family_name_kanji, presence: true
-  validates :first_name_kanji, presence: true
-  validates :family_name, presence: true, format: { with: /\A[ｧ-ﾝﾞﾟァ-ヶー－]+\z/, message: "は全角カタカナで入力して下さい"}
-  validates :first_name, presence: true, format: { with: /\A[ｧ-ﾝﾞﾟァ-ヶー－]+\z/, message: "は全角カタカナで入力して下さい"}
-  validates :birth_day, presence: true
-  validates :encrypted_password, :password, :password_confirmation, length:{minimum: 6}, format:{with: /(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,}/, message: "は半角英数混合で入力して下さい"}
+  with_options presence: true do
+    validates :nickname
+    validates :birth_day
+  end
+
+  with_options presence: true, format: { with: /\A[ぁ-んァ-ン一-龥]+\z/, message: "は全角漢字、ひらがな、カタカナで入力して下さい"} do
+    validates :family_name_kanji
+    validates :first_name_kanji
+  end
+  
+  with_options presence: true, format: { with: /\A[ｧ-ﾝﾞﾟァ-ヶー－]+\z/, message: "は全角カタカナで入力して下さい"} do
+    validates :family_name
+    validates :first_name
+  end
+
+  validates :password, format:{ with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i , message: "は半角英数混合で入力して下さい"}
 end
