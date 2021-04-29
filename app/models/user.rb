@@ -9,7 +9,7 @@ class User < ApplicationRecord
     validates :birth_day
   end
 
-  with_options presence: true, format: { with: /\A[ぁ-んァ-ン一-龥]+\z/, message: "は全角漢字、ひらがな、カタカナで入力して下さい"} do
+  with_options presence: true, format: { with: /\A[ぁ-んァ-ン一-龥々]+\z/, message: "は全角漢字、ひらがな、カタカナで入力して下さい"} do
     validates :family_name_kanji
     validates :first_name_kanji
   end
