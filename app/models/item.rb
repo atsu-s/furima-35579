@@ -2,7 +2,7 @@ class Item < ApplicationRecord
 
   validates :title, { presence: true, length: {maximum: 40}}
   validates :text, presence: true
-  validates :price, { presence: true, numericality: { in: 300..9999999 }}
+  validates :price, presence: true, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, message: 'は300円〜9,999,999円の間かつ半角数字で入力して下さい' }, format: { with: /\A[0-9]+\z/}
   validates :image, presence: true
 
   belongs_to :user
