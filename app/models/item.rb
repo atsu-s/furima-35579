@@ -7,4 +7,5 @@ extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :status
   belongs_to :delivery_charge
   belongs_to :prefecture
+  belongs_to :period
 end
