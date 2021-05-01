@@ -34,31 +34,31 @@ RSpec.describe Item, type: :model do
         end
 
         it 'category_idが1だと出品できない' do
-          @item.category_id = '1'
+          @item.category_id = 1
           @item.valid?
           expect(@item.errors.full_messages).to include("Category must be other than 1")
         end
 
         it 'status_idが1だと出品できない' do
-          @item.status_id = '1'
+          @item.status_id = 1
           @item.valid?
           expect(@item.errors.full_messages).to include("Status must be other than 1")
         end
 
         it 'delivery_charge_idが1だと出品できない' do
-          @item.delivery_charge_id = '1'
+          @item.delivery_charge_id = 1
           @item.valid?
           expect(@item.errors.full_messages).to include("Delivery charge must be other than 1")
         end
 
         it 'prefecture_idが1だと登録できない' do
-          @item.prefecture_id = '1'
+          @item.prefecture_id = 1
           @item.valid?
           expect(@item.errors.full_messages).to include("Prefecture must be other than 1")
         end
 
         it 'period_idが1だと登録できない' do
-          @item.period_id = '1'
+          @item.period_id = 1
           @item.valid?
           expect(@item.errors.full_messages).to include("Period must be other than 1")
         end
@@ -70,13 +70,13 @@ RSpec.describe Item, type: :model do
         end
 
         it 'priceが300円より小さいと出品できない' do
-          @item.price = '299'
+          @item.price = 299
           @item.valid?
           expect(@item.errors.full_messages).to include("Price は300円〜9,999,999円の間かつ半角数字で入力して下さい")
         end
 
         it 'priceが9,999,999円より大きいと出品できない' do
-          @item.price = '10,000,000'
+          @item.price = 10,000,000
           @item.valid?
           expect(@item.errors.full_messages).to include("Price は300円〜9,999,999円の間かつ半角数字で入力して下さい")
         end
