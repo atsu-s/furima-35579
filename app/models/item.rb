@@ -3,7 +3,7 @@ class Item < ApplicationRecord
   with_options presence: true do
     validates :title, { length: {maximum: 40}}
     validates :text
-    validates :price, numericality: {only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, format: { with: /\A[0-9]/}, message: 'は300円〜9,999,999円の間かつ半角数字で整数値のみ入力して下さい' }
+    validates :price, numericality: {only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, message: 'は300円〜9,999,999円の間かつ半角数字で整数値のみ入力して下さい' }
     validates :image
   end
 
