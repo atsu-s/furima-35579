@@ -12,7 +12,13 @@ RSpec.describe Item, type: :model do
         it 'image,titleとtext,category_idとstatus_id,delivery_charge_idとprefecture_id,period_idとprice,が存在すれば出品できる' do
           expect(@item).to be_valid
         end
+
+        it 'priceは半角数字だと登録できる' do
+          @item.price = 300
+          expect(@item).to be_valid
+        end
       end
+
       context '商品を出品できないとき' do
         
         it 'imageが空だと出品できない'do
@@ -81,8 +87,14 @@ RSpec.describe Item, type: :model do
           expect(@item.errors.full_messages).to include("Price は300円〜9,999,999円の間かつ半角数字で入力して下さい")
         end
 
-        it 'priceは半角数字でないと登録できない' do
-          @item.price ='aa'
+        it 'priceは半角数字混合だと登録できない' do
+          @item.price ='a1a'
+          @item.valid?
+          expect(@item.errors.full_messages).to include("Price は300円〜9,999,999円の間かつ半角数字で入力して下さい")
+        end
+
+        it 'priceは全角文字だと登録できない' do
+          @item.price = '１あ'
           @item.valid?
           expect(@item.errors.full_messages).to include("Price は300円〜9,999,999円の間かつ半角数字で入力して下さい")
         end
