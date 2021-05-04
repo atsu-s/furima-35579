@@ -1,5 +1,8 @@
 class BuyersController < ApplicationController
 
+  def index
+  end
+
   def new
     @buyer_order = BuyerOrder.new
   end
@@ -14,8 +17,11 @@ class BuyersController < ApplicationController
     end
   end
 
+  
+
   private
 
   def buyer_params
     params.require(:buyer_order).permit(:postal_code, :prefecture_id, :city_name, :address, :building_name, :tell_number, :order_id)
+  end
 end

@@ -6,7 +6,7 @@ class BuyerOrder
     validates :postal_code, format: { with: /\A\d{3}[-]\d{4}\z/, message: "は半角数字のみで-(ハイフン)を含めて下さい"}
     validates :city_name
     validates :address
-    validates :tell_number, { length: {maximum: 11}, message: "は11桁以内で入力して下さい"}
+    validates :tell_number, { length: {maximum: 11}}
     validates :order_id
     validates :user_id
     validates :item_id
@@ -17,4 +17,5 @@ class BuyerOrder
     order = Order.create(user_id: user_id, item_id: item_id)
 
     Buyer.create(postal_code: postal_code, prefecture_id: prefecture_id, city_name: city_name, address: address, building_name: building_name, tell_number: tell_number, order_id: order_id)
+  end
 end
