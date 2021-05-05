@@ -1,12 +1,13 @@
 class OrdersController < ApplicationController
+  before_action :set_item, only: [:index, :create]
 
   def index
-    @item = Item.find_by(id: params[:item_id])
+    @order_buyer = OrderBuyer.new
   end
 
   def create
-    if @order_buyer = OrderBuyer.new(order_params)
-     @order_buyer.valid?
+    @order_buyer = OrderBuyer.new(order_params)
+    if @order_buyer.valid?
       @order_buyer.save
       redirect_to root_path
     else
@@ -20,5 +21,9 @@ class OrdersController < ApplicationController
 
   def order_params
     params.permit(:postal_code, :prefecture_id, :city_name, :address, :building_name, :tell_number,  :item_id).merge(user_id: current_user.id)
+  end
+
+  def set_item
+    @item = Item.find_by(id: params[:item_id])
   end
 end
