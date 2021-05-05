@@ -1,6 +1,6 @@
 class OrderBuyer
   include ActiveModel::Model
-  attr_accessor :user_id, :item_id, :postal_code, :prefecture_id, :city_name, :address, :building_name, :tell_number, :order_id, :user_id
+  attr_accessor :user_id, :item_id, :postal_code, :prefecture_id, :city_name, :address, :building_name, :tell_number, :order_id, :user_id, :token, :price
 
   with_options presence: true do
     validates :user_id
@@ -9,7 +9,7 @@ class OrderBuyer
     validates :city_name
     validates :address
     validates :tell_number, { length: {maximum: 11}}
-    validates :order_id
+
   end
   validates :prefecture_id, numericality: { other_than: 1 }
 
