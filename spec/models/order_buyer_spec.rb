@@ -62,6 +62,12 @@ RSpec.describe OrderBuyer, type: :model do
         @order_buyer.valid?
         expect(@order_buyer.errors.full_messages).to include("Tell number is too long (maximum is 11 characters)")
       end
+
+      it 'tokenが空だと購入できない' do
+        @order_buyer.token = ''
+        @order_buyer.valid?
+        expect(@order_buyer.errors.full_messages).to include("Token can't be blank")
+      end
     end
   end
 end
