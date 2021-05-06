@@ -66,7 +66,7 @@ RSpec.describe OrderBuyer, type: :model do
       it 'tokenが空だと購入できない' do
         @order_buyer.token = ''
         @order_buyer.valid?
-        expect(@order_buyer.errors.full_messages).to include("Token can't be blank")
+        expect(@order_buyer.errors.full_messages).to include("Token はカード情報を正しく入力して下さい")
       end
     end
   end

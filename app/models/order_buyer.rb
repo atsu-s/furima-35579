@@ -9,10 +9,9 @@ class OrderBuyer
     validates :city_name
     validates :address
     validates :tell_number, { length: {maximum: 11}}
-    validates :token
-
   end
   validates :prefecture_id, numericality: { other_than: 1 }
+  validates :token, presence:{ message: "はカード情報を正しく入力して下さい"}
 
   def save
     order = Order.create(user_id: user_id, item_id: item_id)
