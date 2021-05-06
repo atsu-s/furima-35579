@@ -13,6 +13,11 @@ RSpec.describe OrderBuyer, type: :model do
       it 'すべての値が正しく入力されていれば購入できること' do
         expect(@order_buyer).to be_valid
       end
+
+      it 'building_nameは空でも購入できる' do
+        @order_buyer.building_name = ''
+        expect(@order_buyer).to be_valid
+      end
     end
 
     context '内容に問題がある場合' do
@@ -46,11 +51,6 @@ RSpec.describe OrderBuyer, type: :model do
         expect(@order_buyer.errors.full_messages).to include("Address can't be blank")
       end
 
-      it 'building_nameは空でも購入できる' do
-        @order_buyer.building_name = ''
-        expect(@order_buyer).to be_valid
-      end
-
       it 'tell_numberが空だと購入できない' do
         @order_buyer.tell_number = ''
         @order_buyer.valid?
@@ -60,13 +60,31 @@ RSpec.describe OrderBuyer, type: :model do
       it 'tell_numberが12桁以上だと購入できない' do
         @order_buyer.tell_number = '000000000000'
         @order_buyer.valid?
-        expect(@order_buyer.errors.full_messages).to include("Tell number is too long (maximum is 11 characters)")
+        expect(@order_buyer.errors.full_messages).to include("Tell number は半角数字のみで11桁で入力して下さい")
+      end
+
+      it 'tell_numberが英数混合だと登録できない' do
+        @order_buyer.tell_number = 'a1a'
+        @order_buyer.valid?
+        expect(@order_buyer.errors.full_messages).to include("Tell number は半角数字のみで11桁で入力して下さい")
       end
 
       it 'tokenが空だと購入できない' do
         @order_buyer.token = ''
         @order_buyer.valid?
         expect(@order_buyer.errors.full_messages).to include("Token はカード情報を正しく入力して下さい")
+      end
+
+      it 'userが紐付いていないと購入できない' do
+        @order_buyer.user_id = nil
+        @order_buyer.valid?
+        expect(@order_buyer.errors.full_messages).to include("User can't be blank")
+      end
+
+      it 'itemが紐付いていないと購入できない' do
+        @order_buyer.item_id = nil
+        @order_buyer.valid?
+        expect(@order_buyer.errors.full_messages).to include("Item can't be blank")
       end
     end
   end

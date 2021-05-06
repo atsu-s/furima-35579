@@ -8,7 +8,7 @@ class OrderBuyer
     validates :postal_code, format: { with: /\A\d{3}[-]\d{4}\z/, message: "は半角数字のみで-(ハイフン)を含めて下さい"}
     validates :city_name
     validates :address
-    validates :tell_number, { length: {maximum: 11}}
+    validates :tell_number, format: { with: /\A\d{11}\z/, message: "は半角数字のみで11桁で入力して下さい"}
   end
   validates :prefecture_id, numericality: { other_than: 1 }
   validates :token, presence:{ message: "はカード情報を正しく入力して下さい"}
