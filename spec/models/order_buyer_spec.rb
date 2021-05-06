@@ -5,6 +5,7 @@ RSpec.describe OrderBuyer, type: :model do
     before do
       user = FactoryBot.create(:user)
       item = FactoryBot.create(:item)
+      sleep 0.5
       @order_buyer = FactoryBot.build(:order_buyer, user_id: user.id, item_id: item.id)
     end
 
@@ -60,13 +61,13 @@ RSpec.describe OrderBuyer, type: :model do
       it 'tell_numberが12桁以上だと購入できない' do
         @order_buyer.tell_number = '000000000000'
         @order_buyer.valid?
-        expect(@order_buyer.errors.full_messages).to include("Tell number は半角数字のみで11桁で入力して下さい")
+        expect(@order_buyer.errors.full_messages).to include("Tell number は半角数字のみで10桁若しくは11桁で入力して下さい")
       end
 
       it 'tell_numberが英数混合だと登録できない' do
         @order_buyer.tell_number = 'a1a'
         @order_buyer.valid?
-        expect(@order_buyer.errors.full_messages).to include("Tell number は半角数字のみで11桁で入力して下さい")
+        expect(@order_buyer.errors.full_messages).to include("Tell number は半角数字のみで10桁若しくは11桁で入力して下さい")
       end
 
       it 'tokenが空だと購入できない' do
